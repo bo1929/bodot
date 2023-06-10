@@ -307,10 +307,8 @@ key_bindings:
   #- { key: Key0,           mods: Control,                         action: ResetFontSize    }
   #- { key: Equals,         mods: Control,                         action: IncreaseFontSize }
   #- { key: Plus,           mods: Control,                         action: IncreaseFontSize }
-  - { key: Up,            mods: Alt,                        action: IncreaseFontSize }
   #- { key: NumpadAdd,      mods: Control,                         action: IncreaseFontSize }
-  - { key: Down,          mods: Alt,                        action: DecreaseFontSize }
-  - { key: F3,            mods: Alt,                    command: {program: "/home/bo/.config/alacritty/cycle_colorschemes.py"} }
   #- { key: NumpadSubtract, mods: Control,                         action: DecreaseFontSize }
-  - { key: Return,        mods: Control|Shift,              action: SpawnNewInstance }
-
+  # - { key: Return,        mods: Control|Shift,              action: SpawnNewInstance }
+  - { key: Up,            mods: Alt,                        action: IncreaseFontSize }
+  - { key: Down,          mods: Alt,                        action: DecreaseFontSize }

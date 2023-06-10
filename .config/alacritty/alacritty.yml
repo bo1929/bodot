@@ -1,41 +1,39 @@
+# env:
+#   TERM: alacritty
+
 import:
   - ~/.config/alacritty/colorschemes.yaml
   - ~/.config/alacritty/key_bindings.yaml
-env:
-  TERM: alacritty
 
 window:
-  opacity: 0.9
+  opacity: 1.0
   dimensions:
     columns: 0
     lines: 0
-
   padding:
     x: 5
     y: 5
-
   title: Alacritty
-  dynamic_title: true
+  dynamic_title: false
 
 scrolling:
   history: 10000
   multiplier: 3
 
-font: # Inconsolata, Fantasque Sans, Iosevka Term, Fira Code, Source Code Pro, Input Mono 
+font:
   normal:
     family: Inconsolata
     style: Regular
-    bold:
-      family: Inconsolata
-      style: Bold
-    italic:
-      family: Inconsolata
-      style: Italic
-    bold_italic:
-      family: Inconsolata
-      style: Bold Italic
-  size: 11.0
-
+  bold:
+    family: Inconsolata
+    style: Bold
+  italic:
+    family: Inconsolata
+    style: Italic
+  bold_italic:
+    family: Inconsolata
+    style: Bold Italic
+  size: 19.0
   offset:
     x: 0
     y: 0
@@ -46,6 +44,11 @@ cursor:
     blinking: Off
 
 live_config_reload: true
+
+mouse:
+  double_click: { threshold: 300 }
+  triple_click: { threshold: 300 }
+  hide_when_typing: false
 
 # Shell
 #
@@ -70,15 +73,3 @@ live_config_reload: true
 
 # Send ESC (\x1b) before characters when alt is pressed.
 # alt_send_esc: true
-
-# mouse:
-  # Click settings
-  #
-  # The `double_click` and `triple_click` settings control the time
-  # alacritty should wait for accepting multiple clicks as one double
-  # or triple click.
-  # double_click: { threshold: 300 }
-  # triple_click: { threshold: 300 }
-
-  # If this is `true`, the cursor is temporarily hidden when typing.
-  # hide_when_typing: false
