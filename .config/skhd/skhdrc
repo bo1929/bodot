@@ -1,0 +1,69 @@
+# create desktop, move window and follow focus - uses jq for parsing json (brew install jq)
+shift + alt - n : yabai -m space --create && \
+                  index="$(yabai -m query --spaces --display | jq 'map(select(."is-native-fullscreen" == false))[-1].index')" && \
+                  yabai -m window --space "${index}" && \
+                  yabai -m space --focus "${index}"
+
+# destroy desktop
+shift + alt - w : yabai -m space --focus prev && yabai -m space recent --destroy
+
+# fast focus desktop
+alt - tab : yabai -m space --focus recent
+
+# increase window size
+shift + alt - j : yabai -m window --resize left:-20:0
+shift + alt - k : yabai -m window --resize top:0:-20
+
+# decrease window size
+shift + alt - l : yabai -m window --resize bottom:0:-20
+shift + alt - j : yabai -m window --resize top:0:20
+
+# toggle window zoom
+alt - d : yabai -m window --toggle zoom-parent
+alt - f : yabai -m window --toggle zoom-fullscreen
+
+# toggle window split type
+alt - e : yabai -m window --toggle split
+
+# float / unfloat window and center on screen
+alt - t : yabai -m window --toggle float --grid 4:4:1:1:2:2
+
+# toggle sticky(+float), topmost, picture-in-picture
+alt - p : yabai -m window --toggle sticky --toggle topmost --toggle pip
+
+# focus window
+alt - h : yabai -m window --focus west
+alt - l : yabai -m window --focus east
+alt - k : yabai -m window --focus north
+alt - j : yabai -m window --focus south
+
+# cycle colorscheme
+alt - f3 : ${HOME}/.config/alacritty/cycle_colorschemes.py
+
+# launch app & program
+ctrl + alt - t : alacritty
+ctrl + alt - w : open -a Safari
+
+# swap managed window
+# shift + alt - h : yabai -m window --swap north
+
+# move managed window
+# shift + cmd - h : yabai -m window --warp east
+
+# balance size of windows
+# shift + alt - 0 : yabai -m space --balance
+
+# make floating window fill screen
+# shift + alt - up     : yabai -m window --grid 1:1:0:0:1:1
+
+# make floating window fill left-half of screen
+# shift + alt - left   : yabai -m window --grid 1:2:0:0:1:1
+
+# send window to desktop and follow focus
+# shift + alt - z : yabai -m window --space next; yabai -m space --focus next
+
+# focus monitor
+# ctrl + alt - z  : yabai -m display --focus prev
+
+# send window to monitor and follow focus
+# ctrl + cmd - c  : yabai -m window --display next; yabai -m display --focus next
