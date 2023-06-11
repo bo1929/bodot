@@ -41,8 +41,8 @@ alt - j : yabai -m window --focus south
 alt - f3 : ${HOME}/.config/alacritty/cycle_colorschemes.py
 
 # launch app & program
-ctrl + alt - t : alacritty
-ctrl + alt - w : open -a Safari
+ctrl + alt - t : open -n -a Alacritty
+ctrl + alt - w : open -n -a Safari
 
 # swap managed window
 # shift + alt - h : yabai -m window --swap north
