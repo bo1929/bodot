@@ -1,0 +1,6 @@
+curr_branch=$(yadm rev-parse --abbrev-ref HEAD)
+if [ "${curr_branch}" != "master" ]
+then
+  echo 'Merging the master branch before the push'
+  yadm merge master -m 'Automatic merge before the push'
+fi
