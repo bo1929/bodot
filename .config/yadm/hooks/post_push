@@ -1,0 +1,8 @@
+curr_branch=$(yadm rev-parse --abbrev-ref HEAD)
+if [ "${curr_branch}" != "master" ]
+then
+  echo 'Pushing the master branch too.'
+  yadm checkout master
+  yadm push
+  yadm checkout ${curr_branch}
+fi
