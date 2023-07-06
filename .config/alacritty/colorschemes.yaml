@@ -134,4 +134,4 @@ schemes:
       white:   '#dfddc8'
 
 # Apply
-colors: *everforest_dark_hard
+colors: *everforest_dark_soft
