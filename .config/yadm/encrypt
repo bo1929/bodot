@@ -4,3 +4,7 @@
 .ssh/id_rsa.pub
 .config/git/credentials
 .config/git/token
+.local/share/task/backlog.data
+.local/share/task/completed.data
+.local/share/task/pending.data
+.local/share/task/undo.data
