@@ -4,6 +4,6 @@ then
   echo 'Updating the master branch too.'
   yadm checkout master
   yadm list -a | xargs -I{} yadm checkout ${curr_branch} -- ${HOME}/{}
-  yadm commit -m "Updates from ${curr_branch} branch."
+  yadm commit -m "Updates from a non-master branch."
   yadm checkout ${curr_branch}
 fi
