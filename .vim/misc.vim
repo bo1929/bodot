@@ -1,5 +1,5 @@
 " Toggle netrw explorer window.
-function! ToggleVExplorer()
+function! ToggleNetrwExplorer()
   if exists("t:expl_buf_num")
     let expl_win_num = bufwinnr(t:expl_buf_num)
     if expl_win_num != -1
@@ -144,17 +144,9 @@ if exists(":AsyncRun")
   endif
 endif
 
-if exists(":LspDocumentDiagnostics")
-  augroup InitDiagnosticsLSP
-    autocmd VimEnter * let g:lsp_diagnostics_enable=1
-    autocmd VimEnter * call lsp#enable_diagnostics_for_buffer()
-  augroup END
-endif
-
 augroup SetupAutoCompletion
   autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 augroup END
-
 
 function! ToggleDiagnosticsLSP()
   if exists('*lsp#disable_diagnostics_for_buffer')
@@ -169,6 +161,17 @@ function! ToggleDiagnosticsLSP()
     echo "LSP diagnostics is not available."
   endif
 endfunction
+
+function! InitDiagnosticsLSP()
+  if exists(":LspDocumentDiagnostics")
+    let g:lsp_diagnostics_enable=1
+    call ToggleDiagnosticsLSP()
+  endif
+endfunction
+
+augroup InitDiagnosticsLSP
+  autocmd VimEnter * call InitDiagnosticsLSP()
+augroup END
 
 augroup ResetCursorShape
   " Reset cursor on startup
