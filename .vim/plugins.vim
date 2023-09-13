@@ -109,7 +109,6 @@ call plug#begin('~/.vim/vim-plug')
   Plug 'prabirshrestha/asyncomplete.vim'
   let g:asyncomplete_auto_completeopt = 0
   " }}}
-
   " === cxx === {{{
   " === vim-cpp-modern === {{{
   Plug        'bfrg/vim-cpp-modern'
@@ -162,7 +161,6 @@ call plug#begin('~/.vim/vim-plug')
   endif
   " }}}
   " }}}
-
   " === lsp === {{{
   Plug 'prabirshrestha/vim-lsp'
   Plug 'mattn/vim-lsp-settings'

@@ -36,7 +36,7 @@ vnoremap ~ y:call setreg('', TwiddleCase(@"), getregtype(''))<CR>gv""Pgv
 noremap <silent> <F3> :call ToggleBG()<CR>
 
 " Toggle vertical explorer.
-noremap <silent> <leader>- :call ToggleVExplorer()<CR>
+noremap <silent> <leader>- :call ToggleNetrwExplorer()<CR>
 
 " Disable arrow-keys.
 noremap <Up> <Nop>
@@ -71,7 +71,7 @@ augroup END
 
 function! MapNetrwKeyBindings()
   " Toggle vertical explorer.
-  noremap <buffer> <silent> <leader>- :call ToggleVExplorer()<CR>
+  noremap <buffer> <silent> <leader>- :call ToggleNetrwExplorer()<CR>
   nmap <buffer> <silent> <Tab> <CR>:call SwitchNetrwWindow()<CR>
 endfunction
 
