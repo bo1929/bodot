@@ -62,7 +62,10 @@ function! MapPluginKeyBindings()
   if exists("*asyncomplete#close_popup")
     inoremap <expr> <cr> pumvisible() ? asyncomplete#close_popup() . "\<cr>" : "\<cr>"
   endif
-
+  if exists(":VimwikiVar")
+    nmap gtl <Plug>VimwikiToggleListItem
+    vmap gtl <Plug>VimwikiToggleListItem
+  endif
 endfunction
 
 augroup PluginMappings

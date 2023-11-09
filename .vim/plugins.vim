@@ -102,17 +102,16 @@ call plug#begin('~/.vim/vim-plug')
   " === eunuch === {{{
     Plug        'tpope/vim-eunuch'
   " }}}
-  " === asyncrun === {{{
-  Plug	      'skywind3000/asyncrun.vim'
-  " }}}
-  " === asynccomplete === {{{
-  Plug 'prabirshrestha/asyncomplete.vim'
-  let g:asyncomplete_auto_completeopt = 0
-  " }}}
   " === cxx === {{{
   " === vim-cpp-modern === {{{
   Plug        'bfrg/vim-cpp-modern'
   " }}}
+  " }}}
+  " === vimwiki === {{{
+  Plug 'vimwiki/vimwiki'
+  let g:vimwiki_list = [{'path': '~/Documents/Notes/',
+                          \ 'syntax': 'markdown', 'ext': '.md'}]
+  let g:vimwiki_global_ext = 0
   " }}}
   " === markdown === {{{
   " === vim-markdown === {{{
@@ -139,7 +138,7 @@ call plug#begin('~/.vim/vim-plug')
     endif
   endif
   " }}}
-  " === python === {{{
+  " === python === {{
   " === black === {{{
   if executable('black')
     Plug        'psf/black', {'for': 'python'}
@@ -164,6 +163,19 @@ call plug#begin('~/.vim/vim-plug')
   " === lsp === {{{
   Plug 'prabirshrestha/vim-lsp'
   Plug 'mattn/vim-lsp-settings'
+  " }}}
+  " === asyncrun === {{{
+  Plug	      'skywind3000/asyncrun.vim'
+  " }}}
+  " === asynccomplete === {{{
+  Plug 'prabirshrestha/asyncomplete.vim'
   Plug 'prabirshrestha/asyncomplete-lsp.vim'
+  let g:asyncomplete_auto_completeopt=1
+ 	Plug 'hiterm/asyncomplete-look'
+  au User asyncomplete_setup call asyncomplete#register_source({
+			\ 'name': 'look',
+			\ 'whitelist': ['md', 'txt'],
+			\ 'completor': function('asyncomplete#sources#look#completor'),
+			\ })
   " }}}
 call plug#end()
