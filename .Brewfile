@@ -24,6 +24,7 @@ brew "task"
 brew "ctags"
 brew "cloc"
 brew "clang-format"
+brew "marksman"
 # fonts
 brew "fonts-encodings"
 cask "font-fantasque-sans-mono"
