@@ -29,11 +29,11 @@ font:
     family: Inconsolata
     style: Bold
   italic:
-    family: Inconsolata
+    family: Inconsolata LGC
     style: Italic
   bold_italic:
-    family: Inconsolata
-    style: Bold Italic
+    family: Inconsolata LGC
+    style: BoldItalic
   size: 19.0
   offset:
     x: 0
