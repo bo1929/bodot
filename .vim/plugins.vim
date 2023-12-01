@@ -113,6 +113,9 @@ call plug#begin('~/.vim/vim-plug')
                           \ 'syntax': 'markdown', 'ext': '.md'}]
   let g:vimwiki_global_ext = 0
   " }}}
+  " === literate === {{{
+  Plug 'zyedidia/literate.vim'
+  " }}}
   " === markdown === {{{
   " === vim-markdown === {{{
   Plug	      'bo1929/vim-markdown'
@@ -138,7 +141,7 @@ call plug#begin('~/.vim/vim-plug')
     endif
   endif
   " }}}
-  " === python === {{
+  " === python === {{{
   " === black === {{{
   if executable('black')
     Plug        'psf/black', {'for': 'python'}
@@ -160,6 +163,9 @@ call plug#begin('~/.vim/vim-plug')
   endif
   " }}}
   " }}}
+  " === goyo === {{{
+Plug 'junegunn/goyo.vim'
+  " }}}
   " === lsp === {{{
   Plug 'prabirshrestha/vim-lsp'
   Plug 'mattn/vim-lsp-settings'
@@ -174,7 +180,7 @@ call plug#begin('~/.vim/vim-plug')
  	Plug 'hiterm/asyncomplete-look'
   au User asyncomplete_setup call asyncomplete#register_source({
 			\ 'name': 'look',
-			\ 'whitelist': ['md', 'txt'],
+			\ 'whitelist': ['markdown', 'vimwiki'],
 			\ 'completor': function('asyncomplete#sources#look#completor'),
 			\ })
   " }}}
