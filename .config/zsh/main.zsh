@@ -55,3 +55,6 @@ preexec() { echo -ne '\e[5 q' ;}
 # End of vi mode.
 
 bindkey '^R' history-incremental-search-backward
+
+# Add functions
+fpath=( "${HOME}/.config/zsh/functions" "${fpath[@]}" )
