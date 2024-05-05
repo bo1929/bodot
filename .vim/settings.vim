@@ -15,7 +15,7 @@ set laststatus=2
 set ruler
 " Display command line’s tab complete options as a menu.
 set wildmenu
-" set wildoptions=pum
+set wildoptions=pum
 " Make backspace behave like usual.
 set backspace=indent,eol,start
 " Timeout for key sequences, mappings.
@@ -162,6 +162,11 @@ if exists('+termguicolors')
   let &t_ut=''
   set termguicolors
 endif
+
+let &t_Ts = "\e[9m"   " Strikethrough
+let &t_Te = "\e[29m"
+let &t_Cs = "\e[4:3m" " Undercurl
+let &t_Ce = "\e[4:0m"
 
 try
   colorscheme everforest

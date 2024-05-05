@@ -166,10 +166,6 @@ call plug#begin('~/.vim/vim-plug')
   " === goyo === {{{
 Plug 'junegunn/goyo.vim'
   " }}}
-  " === lsp === {{{
-  Plug 'prabirshrestha/vim-lsp'
-  Plug 'mattn/vim-lsp-settings'
-  " }}}
   " === asyncrun === {{{
   Plug	      'skywind3000/asyncrun.vim'
   " }}}
@@ -183,5 +179,10 @@ Plug 'junegunn/goyo.vim'
 			\ 'whitelist': ['markdown', 'vimwiki'],
 			\ 'completor': function('asyncomplete#sources#look#completor'),
 			\ })
+  " }}}
+  " === lsp === {{{
+  Plug 'prabirshrestha/vim-lsp'
+  Plug 'mattn/vim-lsp-settings'
+  let g:lsp_experimental_workspace_folders = 1
   " }}}
 call plug#end()
