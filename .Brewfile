@@ -1,31 +1,26 @@
 # tap
 tap "homebrew/bundle"
-tap "homebrew/cask-fonts"
 tap "homebrew/services"
-# useful tools & essential packages
-brew "bat"
-brew "exa"
-brew "pandoc"
-brew "macvim"
-brew "htop"
-brew "lf"
-brew "pyenv"
-cask "mactex"
-cask "rectangle"
-cask "alacritty"
-# other important
+# important
 brew "coreutils"
 brew "libssh2"
 brew "gnupg"
-# misc
-brew "jq"
+# useful tools & required packages
+brew "bat"
+brew "eza"
+brew "pandoc"
+brew "macvim"
 brew "yadm"
-brew "task"
+brew "pyenv"
+brew "tmux"
 brew "ctags"
-brew "cloc"
+# misc
+brew "htop"
+brew "lf"
+brew "jq"
+brew "task"
 brew "clang-format"
-brew "marksman"
-# fonts
-brew "fonts-encodings"
-cask "font-fantasque-sans-mono"
-cask "font-inconsolata"
+# useful applications
+cask "mactex"
+cask "rectangle"
+cask "alacritty"

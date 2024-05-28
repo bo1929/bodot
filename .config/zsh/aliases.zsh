@@ -20,4 +20,4 @@ alias ssh='TERM=xterm-256color ssh'
 # =====================
 
 # Third-party applications.
-alias ls='exa -snew'
+alias ls='eza -snew'
