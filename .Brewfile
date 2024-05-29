@@ -18,7 +18,6 @@ brew "ctags"
 brew "htop"
 brew "lf"
 brew "jq"
-brew "task"
 brew "clang-format"
 # useful applications
 cask "mactex"
