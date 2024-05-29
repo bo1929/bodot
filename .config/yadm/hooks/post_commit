@@ -5,7 +5,7 @@ then
   yadm stash && \
   yadm checkout master && \
   yadm list -a | xargs -I{} yadm checkout ${curr_branch} -- ${HOME}/{} && \
-  yadm commit -m "Updates from a non-master branch." && \
+  yadm commit -m "Updates from a non-master branch."
   yadm checkout ${curr_branch} && \
   yadm stash pop
 fi

@@ -4,7 +4,7 @@ then
   echo 'Pushing the master branch too.'
   yadm stash && \
   yadm checkout master && \
-  yadm push && \
+  yadm push
   yadm checkout ${curr_branch} && \
   yadm stash pop
 fi
