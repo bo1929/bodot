@@ -77,6 +77,7 @@ call plug#begin('~/.vim/vim-plug')
   " }}}
   " === tagbar === {{{
   Plug	      'preservim/tagbar'
+  let g:tagbar_position='leftabove vertical'
   " }}}
   " === qf === {{{
   Plug        'romainl/vim-qf'
