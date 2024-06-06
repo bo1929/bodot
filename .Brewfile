@@ -1,14 +1,17 @@
 # tap
 tap "homebrew/bundle"
 tap "homebrew/services"
-# important
+
+# essentials
+brew "htop"
 brew "coreutils"
 brew "libssh2"
 brew "gnupg"
 brew "llvm"
 brew "libomp"
 brew "gcc"
-# useful tools & required packages
+
+# tools
 brew "bat"
 brew "eza"
 brew "pandoc"
@@ -17,12 +20,15 @@ brew "yadm"
 brew "pyenv"
 brew "tmux"
 brew "ctags"
+brew "clang-format"
+
 # misc
-brew "htop"
 brew "lf"
 brew "jq"
-brew "clang-format"
-# useful applications
+
+# useful apps & casks
 cask "mactex"
 cask "rectangle"
 cask "alacritty"
+cask "karabiner-elements"
+cask "font-iosevka"

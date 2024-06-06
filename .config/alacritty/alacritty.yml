@@ -23,17 +23,17 @@ scrolling:
 
 font:
   normal:
-    family: Inconsolata
-    style: Regular
+    family: Iosevka
+    style: Extended
   bold:
-    family: Inconsolata
+    family: Iosevka
     style: Bold
   italic:
-    family: Inconsolata LGC
+    family: Iosevka
     style: Italic
   bold_italic:
-    family: Inconsolata LGC
-    style: BoldItalic
+    family: Iosevka
+    style: Bold Italic
   size: 19.0
   offset:
     x: 0

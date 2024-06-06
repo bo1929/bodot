@@ -56,7 +56,9 @@ call plug#begin('~/.vim/vim-plug')
   let g:xptemplate_minimal_prefix=0
   " }}}
   " === gutentags === {{{
-  Plug        'ludovicchabant/vim-gutentags'
+  if executable('ctags')
+    Plug        'ludovicchabant/vim-gutentags'
+  endif
   " }}}
   " === ctrlp === {{{
   Plug        'ctrlpvim/ctrlp.vim'
@@ -76,8 +78,10 @@ call plug#begin('~/.vim/vim-plug')
   Plug        'machakann/vim-sandwich'
   " }}}
   " === tagbar === {{{
-  Plug	      'preservim/tagbar'
-  let g:tagbar_position='leftabove vertical'
+  if executable('ctags')
+    Plug	      'preservim/tagbar'
+    let g:tagbar_position='leftabove vertical'
+  endif
   " }}}
   " === qf === {{{
   Plug        'romainl/vim-qf'
