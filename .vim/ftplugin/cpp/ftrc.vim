@@ -14,5 +14,5 @@ function! FormatClang()
 endfunction
 
 augroup FormatCpp
-  autocmd! BufWritePre *.cpp,*.h execute ':call FormatClang()'
+  autocmd! BufWritePre *.cpp,*.h,*.hpp execute ':call FormatClang()'
 augroup END
