@@ -25,6 +25,7 @@ brew "clang-format"
 # misc
 brew "lf"
 brew "jq"
+brew "hugo"
 
 # useful apps & casks
 cask "mactex"

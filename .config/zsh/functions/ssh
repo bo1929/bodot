@@ -1,4 +1,8 @@
 ssh() {
+  # Hand the local theme to the remote as LC_THEME
+  # (sshd's default 'AcceptEnv LANG LC_*' lets it through)
+  local lc_theme
+  lc_theme=$(grep -o '[^"/]*\.toml' "${HOME}/.config/theme/colorschemes.toml" 2>/dev/null | tail -1 | sed 's/\.toml$//')
   # grep -w: match command names such as "tmux-2.1" or "tmux: server"
   if ps -p $$ -o ppid= \
     | xargs -I{} ps -p {} -o comm= \
@@ -17,12 +21,11 @@ ssh() {
     #                                 /\6/ | replace with destination
     tmux rename-window "$(echo "$@" \
       | sed 's/[[:space:]]*\(\(\(-[46AaCfGgKkMNnqsTtVvXxYy]\)\|\(-[^[:space:]]*\([[:space:]]\+[^[:space:]]*\)\?\)\)[[:space:]]*\)*[[:space:]]\+\([^-][^[:space:]]*\).*/\6/')"
-    command ssh "$@"
+    LC_THEME="${lc_theme}" command ssh "$@"
     tmux set-window-option automatic-rename "on" 1> /dev/null
   else
-    command ssh "$@"
+    LC_THEME="${lc_theme}" command ssh "$@"
   fi
 }
 
 ssh "$@"
-
