@@ -1,5 +1,8 @@
+" Fallback guard; vimrc already sets nocompatible first.
+if &compatible
+  set nocompatible
+endif
 filetype plugin indent on
-set nocompatible
 set encoding=utf-8
 
 " === General Settings === {{{
@@ -75,7 +78,7 @@ if isdirectory(netrw_directory)
 endif
 let g:netrw_banner=0
 let g:netrw_liststyle=3
-let g:netrw_altv = 1
+let g:netrw_altv=1
 let g:netrw_preview=1
 let g:netrw_browse_split=4
 let g:netrw_winsize=50
@@ -102,8 +105,11 @@ set softtabstop=2
 set hlsearch
 " Do incremental searching.
 set incsearch
-" Case-insensitive search.
+" Case-insensitive file completion.
 set wildignorecase
+" Case-insensitive search, unless the pattern has uppercase letters.
+set ignorecase
+set smartcase
 " Make :grep use rg, if available.
 if executable("rg")
   set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
@@ -112,10 +118,6 @@ endif
 " }}}
 
 " === Cursor === {{{
-" Change cursor while chaning mode.
-let &t_SI="\e[6 q"
-" Change cursor while chaning mode.
-let &t_EI="\e[2 q"
 " Stop cursor blanking.
 set guicursor+=a:blinkon0
 " Do not show cursor-line.
@@ -128,7 +130,7 @@ set nocursorcolumn
 " Do not use wrapping and related settings.
 set nowrap
 set nojoinspaces
-set textwidth=0 
+set textwidth=0
 set wrapmargin=0
 set sidescroll=1
 set listchars+=precedes:<,extends:>
@@ -156,30 +158,32 @@ set foldmethod=marker
 " }}}
 
 " === Visual Related === {{{
+" !!!: t_Co and termguicolors must be set before the colorscheme. 
+set t_Co=256
 if exists('+termguicolors')
+  " Truecolor support
+  let &t_ut=''
+  let &t_RF = "\e]10;?\e\\"
+  let &t_RB = "\e]11;?\e\\"
   let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
-  let &t_ut=''
   set termguicolors
 endif
 
-let &t_Ts = "\e[9m"   " Strikethrough
-let &t_Te = "\e[29m"
-let &t_Cs = "\e[4:3m" " Undercurl
-let &t_Ce = "\e[4:0m"
-
+" Adopt the terminal's theme; fall back to g:active_colorscheme
+" (get() guards against plugins.vim having failed to define it).
+if !SyncColorschemeWithTerminal()
+  if get(g:, 'active_colorscheme', 'gruvbox') ==# 'gruvbox'
+    set background=dark
+  else
+    set background=light
+  endif
+endif
 try
-  colorscheme everforest
+  execute 'colorscheme ' . get(g:, 'active_colorscheme', 'gruvbox')
 catch /^Vim\%((\a\+)\)\=:E185/
   colorscheme darkblue
 endtry
-
-if has('gui_running')
-  set background=light
-else
-  set background=dark
-  set t_Co=256
-endif
 
 " Set the vertical split character to a space.
 set fillchars+=vert:\ 
@@ -191,4 +195,35 @@ set lazyredraw
 syntax enable
 syntax sync minlines=512
 syntax sync maxlines=1024
+
+" Styled and colored underline support
+let &t_8u = "\e[58:2:%lu:%lu:%lum"
+let &t_AU = "\e[58:5:%dm"
+let &t_Us = "\e[4:2m"
+let &t_Cs = "\e[4:3m"
+let &t_ds = "\e[4:4m"
+let &t_Ds = "\e[4:5m"
+let &t_Ce = "\e[4:0m"
+" Strikethrough
+let &t_Ts = "\e[9m"
+let &t_Te = "\e[29m"
+" Bracketed paste
+let &t_BE = "\e[?2004h"
+let &t_BD = "\e[?2004l"
+let &t_PS = "\e[200~"
+let &t_PE = "\e[201~"
+" Cursor control
+let &t_RC = "\e[?12$p"
+let &t_SH = "\e[%d q"
+let &t_RS = "\eP$q q\e\\"
+let &t_SI = "\e[5 q"
+let &t_SR = "\e[3 q"
+let &t_EI = "\e[1 q"
+let &t_VS = "\e[?12l"
+" Focus tracking
+let &t_fe = "\e[?1004h"
+let &t_fd = "\e[?1004l"
+" Window title
+let &t_ST = "\e[22;2t"
+let &t_RT = "\e[23;2t"
 " }}}

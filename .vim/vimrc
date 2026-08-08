@@ -1,6 +1,5 @@
-" Use Vim settings, not Vi. Must come first: everything sourced below
-" relies on nocompatible features (e.g. line continuation in functions);
-" with `vim -u` 'compatible' would otherwise stay on until settings.vim.
+" Use Vim settings, not Vi.
+" Must come first: everything sourced below relies on nocompatible features.
 if &compatible
   set nocompatible
 endif

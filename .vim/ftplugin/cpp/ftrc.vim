@@ -1,5 +1,4 @@
 setlocal autoread
-set autoread
 
 setlocal suffixesadd=.cpp,.h
 

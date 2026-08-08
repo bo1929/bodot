@@ -9,7 +9,7 @@ setlocal conceallevel=2
 
 setlocal foldtext=DotFoldText()
 
-set formatexpr=OneSentencePerLine()
+setlocal formatexpr=OneSentencePerLine()
 
 " Local settings to wrap lines.
 silent call LocalWrap(0, repeat(">", &shiftwidth))

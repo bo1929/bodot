@@ -5,12 +5,9 @@ setlocal complete+=i,t
 setlocal autoread
 
 if exists(':Black') && executable('black')
-  nnoremap <silent> <buffer> <F8>: Black<CR>
+  nnoremap <silent> <buffer> <F8> :Black<CR>
   augroup FormatPython
-    autocmd BufWritePre *.py silent! execute ':Black'
+    autocmd! * <buffer>
+    autocmd BufWritePre <buffer> silent! execute ':Black'
   augroup END
-endif
-
-if exists(':Khuno') && executable('flake8')
-  nmap <silent> <buffer> <F7> <Esc>: Khuno show<CR>
 endif

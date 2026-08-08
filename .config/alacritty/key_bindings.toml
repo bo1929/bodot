@@ -1,0 +1,9 @@
+[[keyboard.bindings]]
+action = "IncreaseFontSize"
+key = "Up"
+mods = "Alt"
+
+[[keyboard.bindings]]
+action = "DecreaseFontSize"
+key = "Down"
+mods = "Alt"

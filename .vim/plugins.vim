@@ -5,15 +5,51 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif 
 
 " Run PlugInstall if there are missing plugins.
-autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-  \| PlugInstall
-\| endif
+augroup PlugAutoInstall
+  autocmd!
+  autocmd VimEnter * if exists('g:plugs') && len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+    \| PlugInstall
+  \| endif
+augroup END
 
 call plug#begin('~/.vim/vim-plug')
+  " === basics === {{{
+  Plug        'machakann/vim-sandwich'
+  Plug        'romainl/vim-qf'
+  Plug        'tpope/vim-eunuch'
+  Plug        'tpope/vim-repeat'
+  Plug        'tpope/vim-commentary'
+  Plug        'tpope/vim-unimpaired'
+  Plug        'tpope/vim-obsession'
+  Plug        'tpope/vim-fugitive'
+  Plug        'tpope/vim-abolish'
+  " }}}
+
+  " === colorscheme === {{{
+  " Fallback colorscheme; the terminal's theme state wins when present
+  " (see SyncColorschemeWithTerminal in misc.vim).
+  let g:active_colorscheme='gruvbox'
+  Plug        'gruvbox-community/gruvbox'
+  let g:gruvbox_contrast_dark='hard'
+  let g:gruvbox_contrast_light='hard'
+  let g:gruvbox_italic=1
+  " }}}
+
+  " === everforest (alternative colorscheme) === {{{
+  " Select it via g:active_colorscheme in the colorscheme section above.
+  Plug        'sainnhe/everforest'
+  let g:everforest_transparent_background=1
+  let g:everforest_disable_italic_comment=0
+  let g:everforest_spell_foreground='colored'
+  let g:everforest_ui_contrast='high'
+  let g:everforest_background='soft'
+  let g:everforest_enable_italic=1
+  " }}}
+
   " === lightline === {{{
   Plug        'itchyny/lightline.vim'
-  let g:lightline = {
-    \ 'colorscheme': 'everforest',
+  let g:lightline={
+    \ 'colorscheme': g:active_colorscheme,
     \ 'active': {
     \   'left': [ [ 'mode', 'paste' ],
     \             [ 'readonly', 'filename', 'modified' ] ],
@@ -37,103 +73,51 @@ call plug#begin('~/.vim/vim-plug')
     \ },
     \ }
   " }}}
-  " === everforest === {{{
-  Plug        'sainnhe/everforest'
-  let g:everforest_transparent_background=1
-  let g:everforest_disable_italic_comment=0
-  let g:everforest_spell_foreground='colored'
-  let g:everforest_ui_contrast='high'
-  let g:everforest_background='soft'
-  let g:everforest_enable_italic=1
-  " }}}
+
   " === quick-scope === {{{
   Plug 'unblevable/quick-scope' 
   let g:qs_highlight_on_keys=['f', 'F', 't', 'T']
   let g:qs_max_chars=120
   " }}}
-  " === xptemplate === {{{
-  Plug	      'drmingdrmer/xptemplate'
-  let g:xptemplate_minimal_prefix=0
-  " }}}
+
   " === gutentags === {{{
-  if executable('ctags')
-    Plug        'ludovicchabant/vim-gutentags'
-  endif
+  let s:ctags_path='/usr/bin/ctags'
+  for s:ctags_path in [
+        \ '/opt/homebrew/opt/ctags/bin/ctags',
+        \ '/usr/bin/ctags',
+        \ 'ctags',
+        \ ]
+    if executable(s:ctags_path)
+      Plug        'ludovicchabant/vim-gutentags'
+      let g:gutentags_ctags_executable=s:ctags_path
+      " Keep tag files out of project roots.
+      call mkdir($HOME . '/.cache/vim/tags', 'p')
+      let g:gutentags_cache_dir=$HOME . '/.cache/vim/tags'
+      break
+    endif
+  endfor
   " }}}
-  " === ctrlp === {{{
-  Plug        'ctrlpvim/ctrlp.vim'
-  " Use fd or rg for ctrlp.
-  let g:ctrlp_use_caching=0
-  if executable('fd')
-    let g:ctrlp_user_command='fd --type f --color=never "" %s'
-  elseif executable('rg')
-    set grepprg=rg\ --color=never
-    let g:ctrlp_user_command='rg %s --files --color=never --glob ""'
-  else
-    let g:ctrlp_use_caching=1
-    let g:ctrlp_clear_cache_on_exit=0
-  endif
-  " }}}
-  " === sandwich === {{{
-  Plug        'machakann/vim-sandwich'
-  " }}}
-  " === tagbar === {{{
-  if executable('ctags')
-    Plug	      'preservim/tagbar'
-    let g:tagbar_position='leftabove vertical'
-  endif
-  " }}}
-  " === qf === {{{
-  Plug        'romainl/vim-qf'
-  " }}}
+
   " === matchup === {{{
   Plug        'andymass/vim-matchup'
+  let g:matchup_matchparen_offscreen = {'method': 'status_manual'}
   " }}}
-  " === abolish === {{{
-    Plug        'tpope/vim-abolish'
-  " }}}
-  " === obsession === {{{
-    Plug        'tpope/vim-obsession'
-  " }}}
-  " === unimpaired === {{{
-    Plug        'tpope/vim-unimpaired'
-  " }}}
-  " === commentary === {{{
-    Plug        'tpope/vim-commentary'
-  " }}}
-  " === repeat === {{{
-    Plug        'tpope/vim-repeat'
-  " }}}
-  " === eunuch === {{{
-    Plug        'tpope/vim-eunuch'
-  " }}}
-  " === cxx === {{{
-  " === vim-cpp-modern === {{{
+
+  " === cpp === {{{
   Plug        'bfrg/vim-cpp-modern'
   " }}}
-  " }}}
-  " === vimwiki === {{{
-  Plug 'vimwiki/vimwiki'
-  let g:vimwiki_list = [{'path': '~/Documents/Notes/',
-                          \ 'syntax': 'markdown', 'ext': '.md'}]
-  let g:vimwiki_global_ext = 0
-  " }}}
-  " === literate === {{{
-  Plug 'zyedidia/literate.vim'
-  " }}}
+
   " === markdown === {{{
-  " === vim-markdown === {{{
-  Plug	      'bo1929/vim-markdown'
+  Plug    'bo1929/vim-markdown'
   " }}}
-  " === tabular === {{{
-  Plug        'godlygeek/tabular'
-  " }}}
-  " }}}
+
   " === la/tex === {{{ 
   if executable('latexmk')
     Plug        'lervag/vimtex'
-    let g:vimtex_compiler_latexmk_engines = {
-        \ '_': '-xelatex',
+    let g:vimtex_compiler_latexmk_engines={'_': '-xelatex'}
+    let g:vimtex_compiler_latexmk={
+        \ 'aux_dir' : '/tmp',
+        \ 'out_dir' : '/tmp',
       \}
     let g:tex_fast=""
     let g:vimtex_fold_manual=0
@@ -146,11 +130,14 @@ call plug#begin('~/.vim/vim-plug')
     endif
   endif
   " }}}
+
   " === python === {{{
   " === black === {{{
   if executable('black')
     Plug        'psf/black', {'for': 'python'}
     let g:black_virtualenv=$HOME . "/.local/pipx/venvs/black"
+    let g:black_skip_magic_trailing_comma=1
+    let g:black_linelength = 100
   endif
   " }}}
   " === jupytext === {{{
@@ -159,35 +146,75 @@ call plug#begin('~/.vim/vim-plug')
     let g:jupytext_fmt='py'
   endif
   " }}}
-  " === khuno === {{{
-  if executable('flake8')
-    Plug        'alfredodeza/khuno.vim'
-    let g:khuno_flake_cmd=$HOME . "/.local/pipx/venvs/flake8/bin/flake8"
-    let g:khuno_builtins="_,apply"
-    let g:khuno_max_line_length=99
-  endif
   " }}}
-  " }}}
-  " === goyo === {{{
-Plug 'junegunn/goyo.vim'
-  " }}}
+
   " === asyncrun === {{{
-  Plug	      'skywind3000/asyncrun.vim'
+  Plug    'skywind3000/asyncrun.vim'
   " }}}
-  " === asynccomplete === {{{
+
+  " === asyncomplete === {{{
   Plug 'prabirshrestha/asyncomplete.vim'
   Plug 'prabirshrestha/asyncomplete-lsp.vim'
-  let g:asyncomplete_auto_completeopt=1
- 	Plug 'hiterm/asyncomplete-look'
+  let g:asyncomplete_auto_completeopt=0
+  Plug 'hiterm/asyncomplete-look'
   au User asyncomplete_setup call asyncomplete#register_source({
-			\ 'name': 'look',
-			\ 'whitelist': ['markdown', 'vimwiki'],
-			\ 'completor': function('asyncomplete#sources#look#completor'),
-			\ })
+    \ 'name': 'look',
+    \ 'whitelist': ['markdown'],
+    \ 'completor': function('asyncomplete#sources#look#completor'),
+    \ })
   " }}}
-  " === lsp === {{{
+
+  " === lsp & autocomplete === {{{
   Plug 'prabirshrestha/vim-lsp'
   Plug 'mattn/vim-lsp-settings'
-  let g:lsp_experimental_workspace_folders = 1
+  " let g:lsp_diagnostics_highlights_enabled = 0
+  " let g:lsp_experimental_workspace_folders = 1
+  " let g:lsp_diagnostics_enabled = 0  
+  let g:lsp_document_highlight_enabled=0
+  let g:lsp_semantic_enabled=0
+  let g:lsp_diagnostics_echo_cursor=0
+  " let g:lsp_diagnostics_float_cursor=1
+  " LSP highlight overrides live in misc.vim (ColorScheme autocmd).
+  let g:lsp_diagnostics_signs_error={'text': '✗'}
+  let g:lsp_diagnostics_signs_warning={'text': '¿'}
+  let g:lsp_diagnostics_virtual_text_enabled=0
+  " set foldmethod=expr
+  "   \ foldexpr=lsp#ui#vim#folding#foldexpr()
+  "   \ foldtext=lsp#ui#vim#folding#foldtext()
+  " let g:lsp_fold_enabled=1
+  " Plug 'Exafunction/windsurf.vim'
   " }}}
+
+""" Inactive:
+  " === auto-popmenu === {{{
+  " Disabled: redundant with asyncomplete — both auto-drive the popup menu
+  " and fight over <CR>/completeopt. asyncomplete (LSP + look) wins.
+  " Plug        'skywind3000/vim-auto-popmenu'
+  " let g:apc_enable_ft={"*":1}
+  " let g:apc_enable_tab=0
+  " let g:apc_cr_confirm=1
+  " }}}
+
+  " === tagbar === {{{
+  " if executable('ctags')
+  "   Plug    'preservim/tagbar'
+  "   " let g:tagbar_position='leftabove vertical'
+  " endif
+  " }}}
+
+  " === ctrlp === {{{
+  " Plug        'ctrlpvim/ctrlp.vim'
+  " " Use fd or rg for ctrlp.
+  " let g:ctrlp_use_caching=0
+  " if executable('fd')
+  "   let g:ctrlp_user_command='fd --type f --color=never "" %s'
+  " elseif executable('rg')
+  "   set grepprg=rg\ --color=never
+  "   let g:ctrlp_user_command='rg %s --files --color=never --glob ""'
+  " else
+  "   let g:ctrlp_use_caching=1
+  "   let g:ctrlp_clear_cache_on_exit=0
+  " endif
+  " }}}
+
 call plug#end()

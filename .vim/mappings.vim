@@ -21,7 +21,7 @@ noremap <leader>c "_c
 nnoremap <leader>bl <C-^>
 " Use <leader>bn to toggle to the next buffer.
 noremap <silent> <leader>bn :bn<CR>
-" Use <leader>bl to toggle to the previous buffer.
+" Use <leader>bp to toggle to the previous buffer.
 noremap <silent> <leader>bp :bp<CR>
 " Use <leader>bd to delete the current buffer.
 noremap <silent> <leader>bd :bd<CR>
@@ -33,10 +33,7 @@ nnoremap Q @@
 vnoremap ~ y:call setreg('', TwiddleCase(@"), getregtype(''))<CR>gv""Pgv
 
 " Toggle background, light or dark.
-noremap <silent> <F3> :call ToggleBG()<CR>
-
-" Toggle vertical explorer.
-noremap <silent> <leader>- :call ToggleNetrwExplorer()<CR>
+noremap <silent> <leader>BG :call ToggleBG()<CR>
 
 " Disable arrow-keys.
 noremap <Up> <Nop>
@@ -44,8 +41,7 @@ noremap <Down> <Nop>
 noremap <Left> <Nop>
 noremap <Right> <Nop>
 
-" Clear \ register.
-" As a result remove highlighting.
+" Clear the search register (removes highlighting).
 nnoremap <silent> \ :let @/=""<CR>
 
 " Do a search for the text in the " register.
@@ -54,30 +50,21 @@ nnoremap <leader>"s :%s/<C-R>"/<text>/g
 
 function! MapPluginKeyBindings()
   if exists(":TagbarToggle")
-    nnoremap <silent> <F5> :TagbarToggle<CR>
+    nnoremap <silent> <leader>T :TagbarToggle<CR>
   endif
   if exists(":LspDocumentDiagnostics")
-    nnoremap <silent> <F3> :call ToggleDiagnosticsLSP()<CR>
+    nnoremap <silent> <leader>L :call ToggleDiagnosticsLSP()<CR>
   endif
-  if exists("*asyncomplete#close_popup")
-    inoremap <expr> <cr> pumvisible() ? asyncomplete#close_popup() . "\<cr>" : "\<cr>"
-  endif
-  if exists(":VimwikiVar")
-    nmap gtl <Plug>VimwikiToggleListItem
-    vmap gtl <Plug>VimwikiToggleListItem
-  endif
+  " Confirm popup selection with <CR> (asyncomplete is autoloaded on first use).
+  inoremap <expr> <cr> pumvisible() ? asyncomplete#close_popup() . "\<cr>" : "\<cr>"
 endfunction
 
 augroup PluginMappings
+  autocmd!
   autocmd VimEnter * call MapPluginKeyBindings()
 augroup END
 
-function! MapNetrwKeyBindings()
-  " Toggle vertical explorer.
-  noremap <buffer> <silent> <leader>- :call ToggleNetrwExplorer()<CR>
-  nmap <buffer> <silent> <Tab> <CR>:call SwitchNetrwWindow()<CR>
-endfunction
-
-augroup NetrwMappings
-  autocmd Filetype netrw call MapNetrwKeyBindings()
-augroup END
+" Toggle the vertical netrw explorer from any buffer.
+nnoremap <silent> <leader>- :call ToggleNetrwExplorer()<CR>
+" Jump to the netrw explorer window from any buffer.
+nnoremap <silent> <leader>+ :call SwitchNetrwWindow()<CR>

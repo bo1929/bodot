@@ -1,0 +1,59 @@
+import = ["/Users/asapci/.config/theme/colorschemes.toml", "/Users/asapci/.config/alacritty/key_bindings.toml"]
+live_config_reload = true
+
+[cursor.style]
+blinking = "Off"
+shape = "Block"
+
+[env]
+TERM = "alacritty"
+# TERM = "xterm-256color"
+
+[font]
+size = 19.0
+
+[font.bold]
+family = "Iosevka"
+style = "Bold"
+
+[font.bold_italic]
+family = "Iosevka"
+style = "Bold Italic"
+
+[font.italic]
+family = "Iosevka"
+style = "Italic"
+
+[font.normal]
+family = "Iosevka"
+style = "Extended"
+
+[font.offset]
+x = 0
+y = 0
+
+[mouse]
+hide_when_typing = false
+
+[scrolling]
+history = 10000
+multiplier = 3
+
+[window]
+decorations = "none"
+dynamic_title = false
+opacity = 1.00
+title = "Alacritty"
+
+[window.dimensions]
+columns = 0
+lines = 0
+
+[window.padding]
+x = 10
+y = 10
+
+[[keyboard.bindings]]
+key = "Return"
+mods = "Shift"
+chars = "\u001B\r"

@@ -9,10 +9,12 @@ setlocal conceallevel=2
 
 setlocal complete+=k
 
-set formatexpr=OneSentencePerLine()
+setlocal formatexpr=OneSentencePerLine()
 
 function! IndentLatex()
   if executable('latexindent')
+    " silent! execute "normal! i "
+    " silent! execute "normal! a\<BS>"
     let last_curpos = getcurpos()
     silent! execute ':%! latexindent -l'
     call setpos('.', last_curpos)
