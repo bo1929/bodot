@@ -1,4 +1,4 @@
-import = ["../theme/colorschemes.toml", "key_bindings.toml"]
+import = ["~/.config/theme/colorschemes.toml", "~/.config/alacritty/key_bindings.toml"]
 live_config_reload = true
 
 [cursor.style]

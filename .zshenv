@@ -1,13 +1,16 @@
 system_type=$(uname -s)
+export PATH="${HOME}/.local/bin:$PATH"
+# export SHELL="/bin/zsh"
+# export SHELL="/usr/bin/zsh"
+if command -v vim >/dev/null 2>&1; then
+  export EDITOR="$(command -v vim)"
+fi
 if [ "${system_type}" = "Darwin" ]; then
-  export PATH="${HOME}/.local/bin:$PATH"
-  export SHELL="/bin/zsh"
-  export EDITOR="/usr/local/bin/vim"
   export PAGER="/usr/bin/less"
+  export OPENER="open"
 else
-  export SHELL="/usr/bin/zsh"
-  export EDITOR="/bin/vim"
   export PAGER="/bin/less"
+  export OPENER="xdg-open"
 fi
 
 case "${TERM}" in alacritty|alacritty-direct)
