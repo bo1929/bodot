@@ -9,4 +9,4 @@
 	url = https://github.com/bo1929/vimrc.git
 [submodule ".config/theme"]
 	path = .config/theme
-	url = https://github.com/bo1929/theme.git
+	url = https://github.com/bo1929/themes.git
