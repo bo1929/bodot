@@ -35,25 +35,32 @@ map X !$f
 # use either file extensions and/or mime types here. Below uses an editor for
 # text files and a file opener for the rest.
 cmd open ${{
-    opener=${OPENER:-}
-    if [ -z "$opener" ]; then
-        if command -v open >/dev/null 2>&1; then
-            opener=open
-        elif command -v xdg-open >/dev/null 2>&1; then
-            opener=xdg-open
-        fi
-    fi
-    case $(file --mime-type -- "$f" -b) in text/*) $EDITOR $fx;; *)
-      if [ -z "$opener" ]; then
-          echo "open: OPENER is not set and neither open nor xdg-open is installed" >&2
-      else
-          for f in $fx; do
-              $opener "$f" > /dev/null 2> /dev/null &
-          done
-      fi
-      ;;
+    test -L $f && f=$(readlink -f $f)
+    case $(file --mime-type $f -b) in
+        text/*) $EDITOR $fx;;
+        *) for f in $fx; do setsid $OPENER $f > /dev/null 2> /dev/null & done;;
     esac
 }}
+# cmd open ${{
+#     opener=${OPENER:-}
+#     if [ -z "$opener" ]; then
+#         if command -v open >/dev/null 2>&1; then
+#             opener=open
+#         elif command -v xdg-open >/dev/null 2>&1; then
+#             opener=xdg-open
+#         fi
+#     fi
+#     case $(file --mime-type -- "$f" -b) in text/*) $EDITOR $fx;; *)
+#       if [ -z "$opener" ]; then
+#           echo "open: OPENER is not set and neither open nor xdg-open is installed" >&2
+#       else
+#           for f in $fx; do
+#               $opener "$f" > /dev/null 2> /dev/null &
+#           done
+#       fi
+#       ;;
+#     esac
+# }}
 
 # define a custom 'rename' command without prompt for overwrite
 # cmd rename %[ -e $1 ] && printf "file exists" || mv $f $1
