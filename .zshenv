@@ -9,3 +9,15 @@ else
   export EDITOR="/bin/vim"
   export PAGER="/bin/less"
 fi
+
+case "${TERM}" in alacritty|alacritty-direct)
+    if [ -n "${TMUX-}" ]; then
+      export TERM=tmux-256color
+    else
+      export TERM=xterm-256color
+    fi
+    ;;
+esac
+export COLORTERM="${COLORTERM:-truecolor}"
+
+export ZDOTDIR="$HOME/.config/zsh"
