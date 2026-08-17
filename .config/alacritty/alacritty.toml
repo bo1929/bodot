@@ -6,8 +6,9 @@ blinking = "Off"
 shape = "Block"
 
 [env]
-TERM = "alacritty"
-# TERM = "xterm-256color"
+# TERM = "alacritty"
+TERM = "xterm-256color"
+COLORTERM = "truecolor"
 
 [font]
 size = 19.0
@@ -41,8 +42,8 @@ multiplier = 3
 
 [window]
 decorations = "none"
-dynamic_title = false
-opacity = 1.00
+dynamic_title = true
+opacity = 0.99
 title = "Alacritty"
 
 [window.dimensions]
